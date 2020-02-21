@@ -29,6 +29,16 @@ class OTPTextView extends PureComponent {
     this.inputs = [];
   }
 
+  clearPin = () => {
+    const { otpText } = this.state;
+    let newText = [];
+    otpText.forEach(text => {
+      newText.push('');
+    })
+    this.setState({ otpText: newText });
+    this.inputs[0].focus();
+  }
+
   componentDidMount() {
     const { defaultValue, cellTextLength } = this.props;
     this.otpText = defaultValue.match(new RegExp('.{1,' + cellTextLength + '}', 'g'));
@@ -45,7 +55,7 @@ class OTPTextView extends PureComponent {
     }, () => {
       handleTextChange(this.state.otpText.join(""));
       if (text.length === cellTextLength && i !== inputCount - 1) {
-        this.inputs[i+1].focus();
+        this.inputs[i + 1].focus();
       }
     });
   }
@@ -58,7 +68,7 @@ class OTPTextView extends PureComponent {
     const { otpText = [] } = this.state;
     //Since otpText[i] is undefined, The clear operation is not functional
     if (e.nativeEvent.key === 'Backspace' && i !== 0 && !otpText[i]) {
-      this.inputs[i-1].focus();
+      this.inputs[i - 1].focus();
     }
   }
 
@@ -133,7 +143,7 @@ OTPTextView.defaultProps = {
   cellTextLength: 1,
   containerStyle: {},
   textInputStyle: {},
-  handleTextChange: () => {},
+  handleTextChange: () => { },
 }
 
 export default OTPTextView;
